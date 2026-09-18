@@ -1,4 +1,4 @@
-# English Placement Test v7
+# English Placement Test 
 
 A lightweight, browser-based English Placement Test for evaluating students' English proficiency through listening, grammar, vocabulary, reading, and advanced-structure questions.
 
