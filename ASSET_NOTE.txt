@@ -1,0 +1,1 @@
+Place the original neu-logo-site.png file in this directory if the HTML references it. The application source was supplied as a standalone HTML/JavaScript text file and was copied to index.html.

@@ -1,0 +1,32 @@
+# Operating-system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor and IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary and backup files
+*.tmp
+*.temp
+*.bak
+*~
+
+# Logs
+*.log
+
+# Local development files
+.env
+.env.*
+*.local
+
+# Generated archives
+*.zip
+
+# Optional test and coverage output
+coverage/
+dist/
+build/

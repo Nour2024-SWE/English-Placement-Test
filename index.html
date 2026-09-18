@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار تحديد مستوى اللغة الإنجليزية - New Egypt University (NEU)</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #2ecc71;
+            --danger-color: #e74c3c;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+            background: var(--card-bg);
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Branded Logo Styles */
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .university-logo {
+            max-height: 130px;
+            max-width: 100%;
+            height: auto;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+            transition: transform 0.3s ease;
+        }
+
+        .university-logo:hover {
+            transform: scale(1.02);
+        }
+
+        .text-logo-fallback {
+            text-align: center;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            padding: 10px;
+        }
+
+        .text-logo-fallback .arabic-univ {
+            font-size: 26px;
+            font-weight: bold;
+            color: #b3701f;
+            margin-bottom: 5px;
+        }
+
+        .text-logo-fallback .logo-neu {
+            font-size: 56px;
+            font-weight: 900;
+            color: #005580;
+            line-height: 0.9;
+            margin: 8px 0;
+            letter-spacing: -1px;
+        }
+
+        .text-logo-fallback .eng-univ {
+            font-size: 14px;
+            font-weight: 800;
+            color: #b3701f;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            font-size: 26px;
+        }
+
+        p.subtitle {
+            color: #7f8c8d;
+            font-size: 15px;
+            margin-top: 5px;
+        }
+
+        .student-info {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .student-info div {
+            flex: 1;
+            min-width: 200px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .student-info label {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 14px;
+            text-align: right;
+        }
+
+        .student-info input {
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            text-align: right;
+        }
+
+        .student-info input:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            background-color: #eaeded;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .progress-bar-wrapper {
+            flex-grow: 1;
+            background-color: #ddd;
+            border-radius: 6px;
+            height: 12px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: var(--success-color);
+            transition: width 0.3s ease-in-out;
+        }
+
+        .progress-text {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 14px;
+            min-width: 130px;
+            text-align: left;
+        }
+
+        /* Notice Banner */
+        .notice-banner {
+            background-color: #ebf5fb;
+            border-right: 4px solid var(--secondary-color);
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #2c3e50;
+            text-align: right;
+        }
+
+        /* Alert Banner */
+        .alert-banner {
+            display: none;
+            background-color: #fadbd8;
+            border-right: 4px solid var(--danger-color);
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #78281f;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        /* Section Header */
+        .section-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 18px;
+            border-radius: 6px;
+            margin-top: 35px;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-header.listening-header {
+            background-color: #d68910;
+        }
+
+        .section-header span.lang-sub {
+            font-size: 13px;
+            font-weight: normal;
+            opacity: 0.9;
+        }
+
+        /* Listening Box */
+        .listening-section {
+            background-color: #fff8e6;
+            padding: 22px;
+            border-left: 4px solid #f39c12;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            line-height: 1.7;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .listening-section h3 {
+            margin-top: 0;
+            color: #d68910;
+            font-size: 18px;
+            border-bottom: 1px solid #f9e79f;
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+        }
+
+        /* Audio Control Buttons */
+        .audio-btn {
+            background-color: #f39c12;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+            margin-right: 10px;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .audio-btn:hover {
+            background-color: #d68910;
+        }
+
+        .audio-btn.btn-stop {
+            background-color: #e74c3c;
+        }
+
+        .audio-btn.btn-stop:hover {
+            background-color: #c0392b;
+        }
+
+        /* Reading Passage Card */
+        .reading-section {
+            background-color: #eef7fc;
+            padding: 22px;
+            border-left: 4px solid var(--secondary-color);
+            border-radius: 6px;
+            margin-bottom: 25px;
+            line-height: 1.7;
+            direction: ltr;
+            text-align: left;
+            font-size: 16px;
+        }
+
+        .reading-section h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-size: 18px;
+            border-bottom: 1px solid #d4e6f1;
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+        }
+
+        /* Question Card */
+        .question-card {
+            background: #fafafa;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            direction: ltr;
+            text-align: left;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .question-card.answered {
+            border-color: #d5dbdb;
+            background: #ffffff;
+        }
+
+        .question-card.unanswered-alert {
+            border-color: var(--danger-color);
+            background-color: #fdf2f0;
+            box-shadow: 0 0 8px rgba(231, 76, 60, 0.2);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            line-height: 1.5;
+        }
+
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            padding: 10px 15px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            background: #fff;
+            font-size: 15px;
+            transition: all 0.2s;
+        }
+
+        .option-label:hover {
+            background: #f0f4f8;
+            border-color: var(--secondary-color);
+        }
+
+        .option-label input {
+            cursor: pointer;
+            width: 17px;
+            height: 17px;
+            margin: 0;
+        }
+
+        .option-label.selected-option {
+            background-color: #ebf5fb;
+            border-color: var(--secondary-color);
+            font-weight: 600;
+        }
+
+        /* Buttons */
+        button.btn-submit {
+            width: 100%;
+            padding: 16px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.1s;
+            margin-top: 30px;
+            box-shadow: 0 4px 6px rgba(52, 152, 219, 0.2);
+        }
+
+        button.btn-submit:hover {
+            background-color: #2980b9;
+        }
+
+        /* Result Screen Styles */
+        #result-screen {
+            display: none;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .score-box {
+            font-size: 54px;
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin: 15px 0;
+        }
+
+        .level-badge {
+            display: inline-block;
+            padding: 12px 35px;
+            background-color: var(--success-color);
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            border-radius: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
+        }
+
+        .result-desc {
+            background-color: #f8f9f9;
+            border: 1px solid #ebedef;
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            line-height: 1.7;
+            color: #2c3e50;
+            text-align: right;
+            margin-bottom: 25px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn-group button {
+            flex: 1;
+            min-width: 220px;
+            margin-top: 0;
+        }
+
+        .btn-secondary {
+            background-color: #7f8c8d !important;
+        }
+
+        .btn-secondary:hover {
+            background-color: #626d6e !important;
+        }
+
+        /* Review Sheet Table */
+        .review-section {
+            margin-top: 35px;
+            text-align: right;
+            border-top: 2px solid #eee;
+            padding-top: 25px;
+        }
+
+        .review-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 14px;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .review-table th, .review-table td {
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .review-table th {
+            background-color: #f2f4f4;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .review-table tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .status-correct {
+            background-color: #d4efdf;
+            color: #196f3d;
+        }
+
+        .status-incorrect {
+            background-color: #fadbd8;
+            color: #78281f;
+        }
+
+        /* Teacher/Admin Panel Section */
+        .admin-panel {
+            margin-top: 40px;
+            background-color: #f8f9fa;
+            border: 2px dashed #bdc3c7;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: right;
+        }
+
+        .admin-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .admin-content {
+            display: none;
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+            padding-top: 15px;
+        }
+
+        .admin-btn-excel {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .admin-btn-excel:hover {
+            background-color: #219653;
+        }
+
+        .admin-btn-clear {
+            background-color: #c0392b;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 13px;
+        }
+
+        .admin-table th, .admin-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .admin-table th {
+            background-color: #2c3e50;
+            color: white;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+                background-color: white;
+            }
+            .container {
+                box-shadow: none;
+                padding: 0;
+                max-width: 100%;
+            }
+            .progress-container, .notice-banner, .btn-group, .admin-panel {
+                display: none !important;
+            }
+            .review-table th {
+                background-color: #f2f4f4 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="logo-container">
+            <!-- Automatically loads if 'neu-logo-site.png' is in the same folder -->
+            <img class="university-logo" src="neu-logo-site.png" alt="جامعة مصر الجديدة - New Egypt University (NEU)" onerror="this.style.display='none'; document.getElementById('text-logo-fallback').style.display='block';">
+            
+            <!-- Styled high-fidelity fallback if the image file is not found offline -->
+            <div id="text-logo-fallback" class="text-logo-fallback" style="display: none;">
+                <div class="arabic-univ">جامعة مصر الجديدة</div>
+                <div class="logo-neu">NEU</div>
+                <div class="eng-univ">NEW EGYPT UNIVERSITY</div>
+            </div>
+        </div>
+        <h1>اختبار تحديد مستوى اللغة الإنجليزية (نسخة تفاعلية متطورة)</h1>
+        <p class="subtitle">امتحان عشوائي مخصص لخريجي الثانوية العامة المتقدمين للدراسة الجامعية</p>
+    </header>
+
+    <div class="notice-banner">
+        💡 <strong>نظام توليد الأسئلة العشوائي:</strong> يحتوي هذا الموقع على بنك أسئلة ضخم يتكون من <strong>120 سؤالاً أكاديمياً متكاملاً</strong>. في كل مرة يتم فيها فتح الصفحة، يولد النظام امتحاناً من <strong>25 سؤالاً عشوائياً</strong> (حوار استماع كامل بـ 5 أسئلة، 7 قواعد، 5 مفردات، ممر قرائي بـ 5 أسئلة، و3 تراكيب متقدمة) بالإضافة إلى <strong>ترتيب عشوائي للخيارات</strong> لمنع التكرار.
+    </div>
+
+    <div id="validation-alert" class="alert-banner">
+        ⚠️ يرجى تعبئة الاسم ورقم القيد، والإجابة على جميع الأسئلة الـ 25 الموضحة باللون الأحمر قبل تسليم الاختبار.
+    </div>
+
+    <form id="quiz-form">
+        <!-- Student Info Fields -->
+        <div class="student-info">
+            <div>
+                <label for="student-name">اسم الطالب بالكامل:</label>
+                <input type="text" id="student-name" placeholder="مثال: أحمد محمد علي" required>
+            </div>
+            <div>
+                <label for="student-id">رقم القيد / الرقم القومي:</label>
+                <input type="text" id="student-id" placeholder="مثال: 30201040..." required>
+            </div>
+        </div>
+
+        <!-- Sticky Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-text" id="progress-indicator">الأسئلة المجابة: 0 / 25</div>
+            <div class="progress-bar-wrapper">
+                <div class="progress-bar" id="exam-progress-bar"></div>
+            </div>
+        </div>
+
+        <!-- Dynamic Questions Target Container -->
+        <div id="dynamic-exam-sections"></div>
+
+        <button type="submit" class="btn-submit">تسليم الاختبار واستخراج النتيجة</button>
+    </form>
+
+    <!-- Result Screen -->
+    <div id="result-screen">
+        <h2>تقرير تقييم مستوى اللغة الإنجليزية</h2>
+        <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; background-color: #fafafa; display: inline-block; min-width: 300px; margin-bottom: 20px;">
+            <p style="margin: 5px 0;"><strong>اسم الطالب:</strong> <span id="res-name"></span></p>
+            <p style="margin: 5px 0;"><strong>رقم القيد / الهوية:</strong> <span id="res-id"></span></p>
+            <p style="margin: 5px 0;"><strong>تاريخ وتوقيت الامتحان:</strong> <span id="res-date"></span></p>
+        </div>
+        
+        <div class="score-box"><span id="res-score">0</span> / 25 (<span id="res-percent">0</span>%)</div>
+        <p style="font-size: 18px; margin: 0;">المستوى التقديري المقابل (CEFR):</p>
+        <div class="level-badge" id="res-level">Determining...</div>
+        
+        <div class="result-desc" id="res-desc"></div>
+        
+        <div class="btn-group">
+            <button class="btn-submit btn-secondary" onclick="window.print()">🖨️ طباعة التقرير أو حفظ كـ PDF</button>
+            <button class="btn-submit" onclick="location.reload()">🔄 إعادة الاختبار (توليد أسئلة جديدة)</button>
+        </div>
+
+        <!-- Visual Review Table -->
+        <div class="review-section">
+            <h3>مراجعة تفصيلية للإجابات (Review Sheet)</h3>
+            <p style="font-size:14px; color:#555;">الجدول أدناه يوضح إجاباتك مقارنة بالإجابات النموذجية الصحيحة لزيادة الاستفادة الأكاديمية:</p>
+            <table class="review-table">
+                <thead>
+                    <tr>
+                        <th style="width: 8%;">No.</th>
+                        <th style="width: 47%;">Exam Question</th>
+                        <th style="width: 20%;">Your Answer</th>
+                        <th style="width: 20%;">Correct Answer</th>
+                        <th style="width: 5%;">Status</th>
+                    </tr>
+                </thead>
+                <tbody id="review-table-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Teacher / Admin Panel -->
+    <div class="admin-panel">
+        <div class="admin-title" onclick="toggleAdminPanel()">
+            <span>⚙️ لوحة إدارة نتائج المعلمين (Teacher Results Database)</span>
+            <span id="admin-toggle-icon">▼ فتح اللوحة</span>
+        </div>
+        <div class="admin-content" id="admin-content-box">
+            <p style="font-size: 14px; color: #555;">تتم أرشفة نتائج جميع الطلاب الذين أجروا الامتحان على هذا الجهاز تلقائياً. يمكنك تصدير كافة النتائج إلى ملف Excel ببغية رصد الدرجات:</p>
+            <div style="margin-bottom: 15px;">
+                <button class="admin-btn-excel" onclick="exportToExcel()">📊 تصدير كافة النتائج إلى Excel (.CSV)</button>
+                <button class="admin-btn-clear" onclick="clearLocalDatabase()">🗑️ مسح قاعدة البيانات المحلية</button>
+            </div>
+            <div id="admin-stats-summary" style="font-weight: bold; margin-bottom: 10px; color: #2c3e50;">إجمالي الامتحانات المسجلة: 0</div>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>التاريخ والتوقيت</th>
+                        <th>اسم الطالب</th>
+                        <th>رقم القيد</th>
+                        <th>الدرجة</th>
+                        <th>النسبة %</th>
+                        <th>المستوى</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-table-body"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ==========================================
+    // OFFLINE TEXT-TO-SPEECH (LISTENING ENGINE)
+    // ==========================================
+    let currentSpeechInstance = null;
+
+    function playAudioText(textToSpeak) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel(); // Stop active speech
+            currentSpeechInstance = new SpeechSynthesisUtterance(textToSpeak);
+            currentSpeechInstance.lang = 'en-US';
+            currentSpeechInstance.rate = 0.85; // Suitable academic pace
+            window.speechSynthesis.speak(currentSpeechInstance);
+        } else {
+            alert('Your browser does not support offline Text-to-Speech. Please use Chrome, Edge, or Firefox.');
+        }
+    }
+
+    function stopAudioText() {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+        }
+    }
+
+    // Helper: Shuffle Array
+    function shuffleArray(array) {
+        const arr = [...array];
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+
+    // ==========================================
+    // 120 QUESTION BANK (DATA EMBEDDING)
+    // ==========================================
+    const listeningPassagesBank = [{"title": "Listening Passage 1: Academic Advising & Course Registration", "script": "Welcome to the Academic Advising Center. Before registering for second-semester courses, all freshman students must meet with their faculty advisor to review their academic progress. If you plan to add or drop a course, the deadline is Friday at 5 PM. Furthermore, free peer tutoring is available at the Student Learning Center every afternoon from 2 PM to 6 PM.", "questions": [{"category": "Listening Comprehension", "text": "Who must freshman students meet with before registering for second-semester courses?", "options": ["The university president", "Their faculty advisor", "The head librarian", "The campus security chief"], "answerText": "Their faculty advisor"}, {"category": "Listening Comprehension", "text": "When is the deadline to add or drop a course?", "options": ["Wednesday at noon", "Thursday midnight", "Friday at 5 PM", "Sunday evening"], "answerText": "Friday at 5 PM"}, {"category": "Listening Comprehension", "text": "Where is free peer tutoring offered?", "options": ["At the Student Learning Center", "In the main cafeteria", "At the computer lab", "In Auditorium A"], "answerText": "At the Student Learning Center"}, {"category": "Listening Comprehension", "text": "What are the daily hours for peer tutoring?", "options": ["8 AM to 12 PM", "10 AM to 2 PM", "2 PM to 6 PM", "6 PM to 10 PM"], "answerText": "2 PM to 6 PM"}, {"category": "Listening Comprehension", "text": "What is the main purpose of this announcement?", "options": ["To promote a sports tournament", "To inform students about advising deadlines and academic support", "To announce cafeteria menu changes", "To cancel all evening lectures"], "answerText": "To inform students about advising deadlines and academic support"}]}, {"title": "Listening Passage 2: Library Digital Archives & Operating Guidelines", "script": "Attention library patrons. The university library is updating its digital archive database. Students can access over fifty thousand academic journals off-campus by logging into the portal with their university credentials. Please note that group study rooms on the second floor must be reserved online twenty-four hours in advance. Silence must be maintained in the quiet reading halls on the third floor at all times.", "questions": [{"category": "Listening Comprehension", "text": "How many academic journals can students access off-campus through the database portal?", "options": ["Five thousand", "Ten thousand", "Over fifty thousand", "One hundred thousand"], "answerText": "Over fifty thousand"}, {"category": "Listening Comprehension", "text": "What is required to log into the off-campus library portal?", "options": ["A credit card", "University credentials", "A guest passcode", "A national passport"], "answerText": "University credentials"}, {"category": "Listening Comprehension", "text": "How far in advance must group study rooms be reserved online?", "options": ["1 hour in advance", "12 hours in advance", "24 hours in advance", "1 week in advance"], "answerText": "24 hours in advance"}, {"category": "Listening Comprehension", "text": "Which floor contains the quiet reading halls where silence is required?", "options": ["First floor", "Second floor", "Third floor", "Basement"], "answerText": "Third floor"}, {"category": "Listening Comprehension", "text": "Where are group study rooms located?", "options": ["First floor", "Second floor", "Third floor", "Fourth floor"], "answerText": "Second floor"}]}, {"title": "Listening Passage 3: Campus Housing & Residence Hall Rules", "script": "Good evening, residence hall residents. This is an important security update from campus housing. Quiet hours begin every night at 10 PM and extend until 7 AM. Overnight guests must be registered at the front desk before 8 PM. In addition, room cleanliness inspections will take place next Tuesday morning. Failure to comply with housing policies may result in a loss of residence privileges.", "questions": [{"category": "Listening Comprehension", "text": "What time do night quiet hours begin in the residence hall?", "options": ["8 PM", "9 PM", "10 PM", "Midnight"], "answerText": "10 PM"}, {"category": "Listening Comprehension", "text": "Until what time do quiet hours last in the morning?", "options": ["5 AM", "6 AM", "7 AM", "8 AM"], "answerText": "7 AM"}, {"category": "Listening Comprehension", "text": "Before what time must overnight guests be registered at the front desk?", "options": ["5 PM", "6 PM", "8 PM", "10 PM"], "answerText": "8 PM"}, {"category": "Listening Comprehension", "text": "When will room cleanliness inspections take place?", "options": ["This Friday afternoon", "Next Tuesday morning", "Next Saturday evening", "End of the month"], "answerText": "Next Tuesday morning"}, {"category": "Listening Comprehension", "text": "What could happen if a student fails to comply with housing policies?", "options": ["Loss of residence privileges", "Expulsion from university", "A minor verbal reminder", "Nothing at all"], "answerText": "Loss of residence privileges"}]}, {"title": "Listening Passage 4: Chemistry Laboratory Safety Orientation", "script": "Welcome to the Organic Chemistry Laboratory. Safety is our highest priority. Before starting any experimental procedure, all students must wear protective safety goggles and a lab coat. Long hair must be tied back, and open-toed shoes are strictly prohibited in the laboratory. In case of chemical spills, the emergency eyewash station and safety shower are located near the exit door.", "questions": [{"category": "Listening Comprehension", "text": "What protective gear must all students wear before starting experiments?", "options": ["Gloves only", "Safety goggles and a lab coat", "Ear protection", "Face shield only"], "answerText": "Safety goggles and a lab coat"}, {"category": "Listening Comprehension", "text": "What type of footwear is strictly prohibited in the laboratory?", "options": ["Boots", "Sneakers", "Open-toed shoes", "Leather shoes"], "answerText": "Open-toed shoes"}, {"category": "Listening Comprehension", "text": "What must students with long hair do before entering the lab area?", "options": ["Cut it short", "Tie it back", "Wear a hat", "Leave the room"], "answerText": "Tie it back"}, {"category": "Listening Comprehension", "text": "Where are the emergency eyewash station and safety shower located?", "options": ["Near the professor desk", "Inside the storage closet", "Near the exit door", "In the hallway outside"], "answerText": "Near the exit door"}, {"category": "Listening Comprehension", "text": "What is the highest priority mentioned in the laboratory orientation?", "options": ["Finishing early", "Safety", "Getting top grades", "Speed"], "answerText": "Safety"}]}];
+    const grammarBank = [{"category": "Grammar & Structure", "text": "She ________ to the library every afternoon after classes finish.", "options": ["go", "goes", "is going", "has gone"], "answerText": "goes"}, {"category": "Grammar & Structure", "text": "If I ________ enough time last night, I would have prepared better for the presentation.", "options": ["have", "had", "had had", "would have"], "answerText": "had had"}, {"category": "Grammar & Structure", "text": "The professor asked the students ________ talking during the lecture.", "options": ["to stop", "stopping", "stop", "stopped"], "answerText": "to stop"}, {"category": "Grammar & Structure", "text": "Neither the instructor nor the students ________ able to solve the equation yesterday.", "options": ["is", "are", "was", "were"], "answerText": "were"}, {"category": "Grammar & Structure", "text": "By next September, they ________ their undergraduate degrees.", "options": ["will finish", "will have finished", "are finishing", "finished"], "answerText": "will have finished"}, {"category": "Grammar & Structure", "text": "The research paper ________ by the university committee next week.", "options": ["will evaluate", "is evaluating", "will be evaluated", "evaluated"], "answerText": "will be evaluated"}, {"category": "Grammar & Structure", "text": "You ________ bring your laptop; the computer lab is fully equipped.", "options": ["don't have to", "must not", "shouldn't", "can't"], "answerText": "don't have to"}, {"category": "Grammar & Structure", "text": "He is interested ________ studying artificial intelligence.", "options": ["on", "at", "in", "for"], "answerText": "in"}, {"category": "Grammar & Structure", "text": "The higher the academic level, ________ effort is required.", "options": ["more", "the more", "most", "the most"], "answerText": "the more"}, {"category": "Grammar & Structure", "text": "Despite ________ hard, he found the final exam quite challenging.", "options": ["he studied", "studying", "study", "he was studying"], "answerText": "studying"}, {"category": "Grammar & Structure", "text": "Rarely ________ such a talented student in our department.", "options": ["we see", "have we seen", "we have seen", "saw we"], "answerText": "have we seen"}, {"category": "Grammar & Structure", "text": "The dean insisted that the meeting ________ postponed until Monday.", "options": ["is", "be", "was", "would be"], "answerText": "be"}, {"category": "Grammar & Structure", "text": "Having ________ the experiment three times, the team finally achieved consistent results.", "options": ["conduct", "conducting", "conducted", "been conducted"], "answerText": "conducted"}, {"category": "Grammar & Structure", "text": "Scarcely had the lecture begun ________ the power went out.", "options": ["than", "when", "then", "after"], "answerText": "when"}, {"category": "Grammar & Structure", "text": "She talks about quantum physics as if she ________ an expert in the field.", "options": ["is", "were", "has been", "would be"], "answerText": "were"}, {"category": "Grammar & Structure", "text": "The committee recommended that he ________ a new research proposal.", "options": ["submits", "submit", "submitted", "has submitted"], "answerText": "submit"}, {"category": "Grammar & Structure", "text": "Not only ________ the exam, but she also scored the highest mark in the faculty.", "options": ["she passed", "did she pass", "has she passed", "she had passed"], "answerText": "did she pass"}, {"category": "Grammar & Structure", "text": "The student wished he ________ more attention during the physics seminar.", "options": ["paid", "has paid", "had paid", "would pay"], "answerText": "had paid"}, {"category": "Grammar & Structure", "text": "Had I known about the application deadline, I ________ it on time.", "options": ["will submit", "would submit", "would have submitted", "had submitted"], "answerText": "would have submitted"}, {"category": "Grammar & Structure", "text": "Either the director or his assistants ________ attending the international conference.", "options": ["is", "are", "was", "has been"], "answerText": "are"}, {"category": "Grammar & Structure", "text": "It is essential that every applicant ________ valid identification documents.", "options": ["present", "presents", "presented", "is presenting"], "answerText": "present"}, {"category": "Grammar & Structure", "text": "No sooner had we arrived at the campus ________ the ceremony started.", "options": ["when", "than", "before", "then"], "answerText": "than"}, {"category": "Grammar & Structure", "text": "The books ________ were donated to the university library belong to the science section.", "options": ["what", "which", "whom", "where"], "answerText": "which"}, {"category": "Grammar & Structure", "text": "Little ________ about the complex problem before conducting the literature review.", "options": ["did they know", "they knew", "they have known", "had they known"], "answerText": "did they know"}, {"category": "Grammar & Structure", "text": "By the time the semester ends, Dr. Sarah ________ for over twenty years.", "options": ["will teach", "will have been teaching", "teaches", "is teaching"], "answerText": "will have been teaching"}, {"category": "Grammar & Structure", "text": "I would rather you ________ me the truth right now.", "options": ["tell", "told", "have told", "will tell"], "answerText": "told"}, {"category": "Grammar & Structure", "text": "Suppose you ________ selected for the exchange program, where would you go?", "options": ["are", "were", "had been", "will be"], "answerText": "were"}, {"category": "Grammar & Structure", "text": "She avoided ________ any mistakes during her final viva presentation.", "options": ["make", "to make", "making", "made"], "answerText": "making"}, {"category": "Grammar & Structure", "text": "The professor had his assistant ________ the lab equipment before the session.", "options": ["calibrate", "to calibrate", "calibrated", "calibrating"], "answerText": "calibrate"}, {"category": "Grammar & Structure", "text": "He was accused ________ plagiarizing a section of his term paper.", "options": ["with", "of", "for", "on"], "answerText": "of"}, {"category": "Grammar & Structure", "text": "Such ________ the severity of the storm that classes were suspended.", "options": ["is", "was", "were", "been"], "answerText": "was"}, {"category": "Grammar & Structure", "text": "Neither of the proposed hypotheses ________ fully supported by the empirical data.", "options": ["is", "are", "were", "have been"], "answerText": "is"}, {"category": "Grammar & Structure", "text": "The student regretted ________ the preparatory workshop earlier in the term.", "options": ["not attend", "not to attend", "not attending", "to not attend"], "answerText": "not attending"}, {"category": "Grammar & Structure", "text": "Were it not for your assistance, I ________ able to complete the project.", "options": ["won't be", "wouldn't be", "am not", "hadn't been"], "answerText": "wouldn't be"}, {"category": "Grammar & Structure", "text": "The data ________ collected from over five hundred respondents across three campuses.", "options": ["was", "were", "is", "has"], "answerText": "were"}, {"category": "Grammar & Structure", "text": "So demanding ________ the curriculum that students spent weekends studying.", "options": ["was", "is", "were", "did"], "answerText": "was"}, {"category": "Grammar & Structure", "text": "He suggested ________ a pilot study before distributing the final survey.", "options": ["to conduct", "conducting", "conduct", "conducted"], "answerText": "conducting"}, {"category": "Grammar & Structure", "text": "It is high time we ________ working on the group assignment.", "options": ["start", "started", "have started", "will start"], "answerText": "started"}, {"category": "Grammar & Structure", "text": "Under no circumstances ________ leave the examination room without permission.", "options": ["students should", "should students", "students can", "students may"], "answerText": "should students"}, {"category": "Grammar & Structure", "text": "The research paper, along with its statistical appendices, ________ submitted yesterday.", "options": ["was", "were", "have been", "are"], "answerText": "was"}];
+    const vocabBank = [{"category": "Vocabulary & Lexicon", "text": "Students are encouraged to ________ in campus activities to build social skills.", "options": ["participate", "prevent", "postpone", "predict"], "answerText": "participate"}, {"category": "Vocabulary & Lexicon", "text": "The university offered a full ________ to top-performing high school graduates.", "options": ["membership", "scholarship", "internship", "citizenship"], "answerText": "scholarship"}, {"category": "Vocabulary & Lexicon", "text": "It is essential to ________ your source material when writing an academic essay.", "options": ["cite", "sight", "site", "side"], "answerText": "cite"}, {"category": "Vocabulary & Lexicon", "text": "The system provides immediate ________ on student performance.", "options": ["feedback", "food", "footstep", "framework"], "answerText": "feedback"}, {"category": "Vocabulary & Lexicon", "text": "Managing multiple deadlines requires effective time ________ skills.", "options": ["management", "measurement", "movement", "manufacture"], "answerText": "management"}, {"category": "Vocabulary & Lexicon", "text": "The research findings ________ that there is a strong link between attendance and grades.", "options": ["indicate", "eliminate", "imitate", "irrigate"], "answerText": "indicate"}, {"category": "Vocabulary & Lexicon", "text": "All undergraduate students must ________ their final assignments before Friday.", "options": ["submit", "admit", "omit", "permit"], "answerText": "submit"}, {"category": "Vocabulary & Lexicon", "text": "The thesis statement provides a clear ________ of the paper's main argument.", "options": ["outline", "outcome", "outfit", "outlook"], "answerText": "outline"}, {"category": "Vocabulary & Lexicon", "text": "Critical thinking involves analyzing information in an ________ and objective manner.", "options": ["unbiased", "unclear", "unimportant", "unstable"], "answerText": "unbiased"}, {"category": "Vocabulary & Lexicon", "text": "The library contains an extensive ________ of academic journals and reference books.", "options": ["collection", "correction", "connection", "collision"], "answerText": "collection"}, {"category": "Vocabulary & Lexicon", "text": "Plagiarism is considered a serious breach of academic ________.", "options": ["integrity", "intensity", "intention", "interaction"], "answerText": "integrity"}, {"category": "Vocabulary & Lexicon", "text": "Her research paper made a substantial ________ to the field of environmental science.", "options": ["contribution", "construction", "consumption", "contradiction"], "answerText": "contribution"}, {"category": "Vocabulary & Lexicon", "text": "Students must obtain ________ from the ethical board before conducting human surveys.", "options": ["clearance", "clearity", "clearing", "clearness"], "answerText": "clearance"}, {"category": "Vocabulary & Lexicon", "text": "The results were statistically ________ and could not have occurred by pure chance.", "options": ["significant", "similar", "silent", "sincere"], "answerText": "significant"}, {"category": "Vocabulary & Lexicon", "text": "The curriculum is designed to ________ students with essential analytical skills.", "options": ["equip", "equal", "equate", "erase"], "answerText": "equip"}, {"category": "Vocabulary & Lexicon", "text": "Professor Smith is renowned for his ________ lectures on artificial intelligence.", "options": ["insightful", "insignificant", "insincere", "instinctive"], "answerText": "insightful"}, {"category": "Vocabulary & Lexicon", "text": "The university syllabus undergoes ________ reviews to maintain international standards.", "options": ["periodic", "peripheral", "perishable", "perplexing"], "answerText": "periodic"}, {"category": "Vocabulary & Lexicon", "text": "He demonstrated a comprehensive ________ of advanced macroeconomic theories.", "options": ["understanding", "underestimate", "undertaking", "underlining"], "answerText": "understanding"}, {"category": "Vocabulary & Lexicon", "text": "Academic journals require articles to undergo rigorous peer ________ before publication.", "options": ["review", "revision", "reversal", "reception"], "answerText": "review"}, {"category": "Vocabulary & Lexicon", "text": "The methodology chapter should clearly ________ the procedures used during data gathering.", "options": ["delineate", "deliberate", "delegate", "delete"], "answerText": "delineate"}, {"category": "Vocabulary & Lexicon", "text": "The study highlighted several ________ factors contributing to urban expansion.", "options": ["pivotal", "passable", "punitive", "perilous"], "answerText": "pivotal"}, {"category": "Vocabulary & Lexicon", "text": "Her argument was supported by empirical ________ gathered across multiple trials.", "options": ["evidence", "element", "emphasis", "emotion"], "answerText": "evidence"}, {"category": "Vocabulary & Lexicon", "text": "The guest speaker delivered a very ________ address on sustainable engineering.", "options": ["eloquent", "elongated", "elusive", "elementary"], "answerText": "eloquent"}, {"category": "Vocabulary & Lexicon", "text": "The university aims to ________ a culture of innovation and research excellence.", "options": ["foster", "forfeit", "foresee", "formulate"], "answerText": "foster"}, {"category": "Vocabulary & Lexicon", "text": "There is a noticeable ________ between the two statistical models.", "options": ["discrepancy", "discretion", "discourse", "discovery"], "answerText": "discrepancy"}, {"category": "Vocabulary & Lexicon", "text": "Online databases allow students to ________ academic research from anywhere.", "options": ["retrieve", "retract", "retire", "retain"], "answerText": "retrieve"}, {"category": "Vocabulary & Lexicon", "text": "The committee reached a unanimous ________ regarding the new department policy.", "options": ["consensus", "consent", "consequence", "constraint"], "answerText": "consensus"}, {"category": "Vocabulary & Lexicon", "text": "The new software will significantly ________ the data analysis process.", "options": ["streamline", "strangle", "stray", "stretch"], "answerText": "streamline"}, {"category": "Vocabulary & Lexicon", "text": "Dr. Hassan has published numerous articles in highly ________ scientific journals.", "options": ["prestigious", "precarious", "prevalent", "premature"], "answerText": "prestigious"}, {"category": "Vocabulary & Lexicon", "text": "The findings should be interpreted with ________ due to the small sample size.", "options": ["caution", "certainty", "casualty", "celebration"], "answerText": "caution"}];
+    const readingBank = [{"title": "Passage A: The University Transition", "text": "The transition from high school to university life represents a significant milestone for students worldwide. At university, students are expected to take full responsibility for their learning outcomes and time management. Unlike high school, where teachers often provide strict guidance, academic success in higher education relies heavily on self-discipline, critical thinking, and independent research skills.", "questions": [{"category": "Reading Comprehension", "text": "According to Passage A, academic success in university relies heavily on:", "options": ["Strict teacher guidance", "Independent research and self-discipline", "High school grades", "Group assignments only"], "answerText": "Independent research and self-discipline"}, {"category": "Reading Comprehension", "text": "The word 'significant' in line 1 of Passage A is closest in meaning to:", "options": ["Minor", "Important", "Difficult", "Unnecessary"], "answerText": "Important"}, {"category": "Reading Comprehension", "text": "What is a main difference mentioned between high school and university?", "options": ["Teachers in university are stricter", "High school requires more self-discipline", "University students are expected to take responsibility for learning", "University has no deadlines"], "answerText": "University students are expected to take responsibility for learning"}, {"category": "Reading Comprehension", "text": "The term 'milestone' in Passage A refers to an important ________.", "options": ["event or stage", "obstacle", "problem", "building"], "answerText": "event or stage"}, {"category": "Reading Comprehension", "text": "What is the primary purpose of Passage A?", "options": ["To criticize high school teachers", "To explain expectations in higher education", "To compare university tuition fees", "To promote campus sports"], "answerText": "To explain expectations in higher education"}]}, {"title": "Passage B: AI in Higher Education", "text": "Artificial Intelligence (AI) is transforming modern university classrooms at an unprecedented pace. Automated tutoring systems provide personalized feedback, while natural language tools assist researchers in analyzing massive datasets. However, educators emphasize that AI should complement rather than replace human critical inquiry, urging institutions to establish clear ethical guidelines regarding academic integrity.", "questions": [{"category": "Reading Comprehension", "text": "According to Passage B, AI tools assist researchers primarily by:", "options": ["Replacing professors completely", "Analyzing massive datasets", "Eliminating university tuition", "Grading attendance automatically"], "answerText": "Analyzing massive datasets"}, {"category": "Reading Comprehension", "text": "The word 'unprecedented' in Passage B means:", "options": ["Never seen before", "Very slow", "Traditional", "Unimportant"], "answerText": "Never seen before"}, {"category": "Reading Comprehension", "text": "Educators in Passage B emphasize that AI should:", "options": ["Replace human critical inquiry", "Be banned from classrooms", "Complement human critical inquiry", "Only be used by administrators"], "answerText": "Complement human critical inquiry"}, {"category": "Reading Comprehension", "text": "What concern do educators raise regarding AI adoption?", "options": ["Lack of electricity", "Academic integrity and ethical guidelines", "High price of textbooks", "Student attendance drops"], "answerText": "Academic integrity and ethical guidelines"}, {"category": "Reading Comprehension", "text": "The phrase 'complement rather than replace' implies that AI is meant to be a ________.", "options": ["supportive tool", "substitute", "competitor", "threat"], "answerText": "supportive tool"}]}, {"title": "Passage C: Climate Science & Policy", "text": "Interdisciplinary research has become a cornerstone of contemporary climate science. Solving complex environmental challenges requires collaboration among meteorologists, economists, and urban planners. By combining empirical data with socioeconomic models, researchers can formulate sustainable policy recommendations that balance ecological preservation with economic growth.", "questions": [{"category": "Reading Comprehension", "text": "According to Passage C, solving environmental challenges requires:", "options": ["Meteorologists working in isolation", "Collaboration across multiple disciplines", "Ignoring economic models", "Focusing solely on urban development"], "answerText": "Collaboration across multiple disciplines"}, {"category": "Reading Comprehension", "text": "The word 'cornerstone' in Passage C implies something that is:", "options": ["Fundamental and essential", "Decorative and optional", "Rare and temporary", "Outdated"], "answerText": "Fundamental and essential"}, {"category": "Reading Comprehension", "text": "Sustainable policy recommendations should balance ecological preservation with:", "options": ["Political debates", "Economic growth", "High taxation", "Space exploration"], "answerText": "Economic growth"}, {"category": "Reading Comprehension", "text": "What type of data is combined with socioeconomic models?", "options": ["Historical fiction", "Empirical data", "Unverified rumors", "Personal opinions"], "answerText": "Empirical data"}, {"category": "Reading Comprehension", "text": "The overarching theme of Passage C is the importance of ________ in science.", "options": ["specialization", "interdisciplinary collaboration", "competition", "financial profit"], "answerText": "interdisciplinary collaboration"}]}];
+    const advancedBank = [{"category": "Advanced Structures", "text": "Hardly ________ entered the lecture hall when the professor began speaking.", "options": ["had he", "he had", "did he", "has he"], "answerText": "had he"}, {"category": "Advanced Structures", "text": "Were the climate conditions to deteriorate further, the field expedition ________ canceled.", "options": ["will be", "would be", "is", "had been"], "answerText": "would be"}, {"category": "Advanced Structures", "text": "The findings were so ambiguous that the committee requested ________ analysis.", "options": ["further", "farther", "farthest", "furthest"], "answerText": "further"}, {"category": "Advanced Structures", "text": "In no way ________ responsible for the technical error during the broadcast.", "options": ["the student was", "was the student", "the student is", "has the student"], "answerText": "was the student"}, {"category": "Advanced Structures", "text": "She was on the ________ of submitting her doctoral proposal when her system crashed.", "options": ["verge", "edge", "limit", "border"], "answerText": "verge"}, {"category": "Advanced Structures", "text": "The phenomenon, long thought to be impossible, ________ observed under lab conditions.", "options": ["has now been", "is being now", "was now", "having been"], "answerText": "has now been"}, {"category": "Advanced Structures", "text": "Only after extensive peer review ________ for final publication.", "options": ["the paper was accepted", "was the paper accepted", "did the paper accepted", "the paper accepted"], "answerText": "was the paper accepted"}, {"category": "Advanced Structures", "text": "The statistical correlation, ________ compelling, does not necessarily prove direct causation.", "options": ["albeit", "despite", "whereas", "nonetheless"], "answerText": "albeit"}, {"category": "Advanced Structures", "text": "Should you ________ any technical difficulties, please contact the IT helpdesk.", "options": ["encounter", "encountered", "encounters", "will encounter"], "answerText": "encounter"}, {"category": "Advanced Structures", "text": "Far ________ it from me to criticize the research methodology, but the sample size seems small.", "options": ["be", "is", "were", "being"], "answerText": "be"}, {"category": "Advanced Structures", "text": "The experimental framework is subject to ________ revision as new data emerges.", "options": ["continual", "continuous", "contained", "continued"], "answerText": "continual"}, {"category": "Advanced Structures", "text": "So complex ________ the mathematical proof that only a few scholars understood it.", "options": ["was", "did", "were", "has"], "answerText": "was"}, {"category": "Advanced Structures", "text": "Much as she ________ studying literature, she decided to major in computer engineering.", "options": ["enjoyed", "enjoys", "would enjoy", "had enjoyed"], "answerText": "enjoyed"}, {"category": "Advanced Structures", "text": "It is imperative that confidentiality ________ maintained throughout the trial.", "options": ["be", "is", "was", "would be"], "answerText": "be"}, {"category": "Advanced Structures", "text": "Seldom ________ such unanimous agreement among university faculty members.", "options": ["there is", "is there", "there was", "there has been"], "answerText": "is there"}];
+
+    // Global Active Questions Store
+    let allActiveQuestions = [];
+
+    // ==========================================
+    // EXAM GENERATOR (RANDOM SELECTION & SHUFFLE)
+    // ==========================================
+    function generateExam() {
+        allActiveQuestions = [];
+
+        // 1. Pick 1 Listening Passage & its 5 Questions from Listening Bank
+        const selectedListeningPassage = shuffleArray(listeningPassagesBank)[0];
+
+        // 2. Pick 7 Grammar Questions from 40 Grammar Bank
+        const selectedGrammar = shuffleArray(grammarBank).slice(0, 7);
+
+        // 3. Pick 5 Vocabulary Questions from 30 Vocab Bank
+        const selectedVocab = shuffleArray(vocabBank).slice(0, 5);
+
+        // 4. Pick 1 Reading Passage & its 5 Questions from Reading Bank
+        const selectedPassageObj = shuffleArray(readingBank)[0];
+
+        // 5. Pick 3 Advanced Structure Questions from 15 Advanced Bank
+        const selectedAdvanced = shuffleArray(advancedBank).slice(0, 3);
+
+        // Combine into single array of 25 questions
+        let rawList = [
+            ...selectedListeningPassage.questions,
+            ...selectedGrammar,
+            ...selectedVocab,
+            ...selectedPassageObj.questions,
+            ...selectedAdvanced
+        ];
+
+        // Process questions: Shuffle options & record correct index
+        rawList.forEach((q, index) => {
+            const shuffledOpts = shuffleArray(q.options);
+            const correctIndex = shuffledOpts.indexOf(q.answerText);
+
+            allActiveQuestions.push({
+                id: index + 1,
+                category: q.category,
+                text: q.text,
+                options: shuffledOpts,
+                answer: correctIndex,
+                answerText: q.answerText,
+                userAnswer: null
+            });
+        });
+
+        // Render UI Sections
+        const container = document.getElementById('dynamic-exam-sections');
+        container.innerHTML = '';
+
+        // --- SECTION 1: LISTENING COMPREHENSION ---
+        const listHeader = document.createElement('div');
+        listHeader.className = 'section-header listening-header';
+        listHeader.innerHTML = `
+            <span>🔊 الجزء الأول: فهم الاستماع المباشر (Listening Comprehension)</span>
+            <span class="lang-sub">5 Questions</span>
+        `;
+        container.appendChild(listHeader);
+
+        // Render Listening Passage Card
+        const listeningCard = document.createElement('div');
+        listeningCard.className = 'listening-section';
+
+        // Escaping script safely for JS call
+        const safeListeningScript = selectedListeningPassage.script.replace(/'/g, "\'");
+
+        listeningCard.innerHTML = `
+            <h3>${selectedListeningPassage.title}</h3>
+            <p><strong>Instructions:</strong> Click the button below to listen to the full academic passage or dialogue. You may listen as many times as needed while answering the 5 questions below.</p>
+            <div style="margin-top: 15px;">
+                <button type="button" class="audio-btn" onclick="playAudioText('${safeListeningScript}')">
+                    ▶ Play Full Audio Passage / Conversation
+                </button>
+                <button type="button" class="audio-btn btn-stop" onclick="stopAudioText()">
+                    ⏹ Stop
+                </button>
+            </div>
+        `;
+        container.appendChild(listeningCard);
+
+        allActiveQuestions.slice(0, 5).forEach(q => {
+            container.appendChild(createQuestionCard(q));
+        });
+
+        // --- SECTION 2: GRAMMAR & STRUCTURE ---
+        const gramHeader = document.createElement('div');
+        gramHeader.className = 'section-header';
+        gramHeader.innerHTML = `
+            <span>📝 الجزء الثاني: قواعد وتراكيب اللغة (Grammar & Structure)</span>
+            <span class="lang-sub">7 Questions</span>
+        `;
+        container.appendChild(gramHeader);
+
+        allActiveQuestions.slice(5, 12).forEach(q => {
+            container.appendChild(createQuestionCard(q));
+        });
+
+        // --- SECTION 3: VOCABULARY ---
+        const vocabHeader = document.createElement('div');
+        vocabHeader.className = 'section-header';
+        vocabHeader.innerHTML = `
+            <span>📚 الجزء الثالث: المفردات والمصطلحات الأكاديمية (Vocabulary)</span>
+            <span class="lang-sub">5 Questions</span>
+        `;
+        container.appendChild(vocabHeader);
+
+        allActiveQuestions.slice(12, 17).forEach(q => {
+            container.appendChild(createQuestionCard(q));
+        });
+
+        // --- SECTION 4: READING COMPREHENSION ---
+        const readHeader = document.createElement('div');
+        readHeader.className = 'section-header';
+        readHeader.innerHTML = `
+            <span>📖 الجزء الرابع: القراءة وفهم النصوص الأكاديمية (Reading Comprehension)</span>
+            <span class="lang-sub">5 Questions</span>
+        `;
+        container.appendChild(readHeader);
+
+        // Render Selected Passage Box
+        const passageBox = document.createElement('div');
+        passageBox.className = 'reading-section';
+        passageBox.innerHTML = `
+            <h3>${selectedPassageObj.title}</h3>
+            <p>${selectedPassageObj.text}</p>
+        `;
+        container.appendChild(passageBox);
+
+        allActiveQuestions.slice(17, 22).forEach(q => {
+            container.appendChild(createQuestionCard(q));
+        });
+
+        // --- SECTION 5: ADVANCED STRUCTURES ---
+        const advHeader = document.createElement('div');
+        advHeader.className = 'section-header';
+        advHeader.innerHTML = `
+            <span>🎯 الجزء الخامس: التراكيب المتقدمة والتفكير النقدي (Advanced Structures)</span>
+            <span class="lang-sub">3 Questions</span>
+        `;
+        container.appendChild(advHeader);
+
+        allActiveQuestions.slice(22, 25).forEach(q => {
+            container.appendChild(createQuestionCard(q));
+        });
+
+        updateProgressBar();
+    }
+
+    // Helper: Create Question HTML Card
+    function createQuestionCard(q) {
+        const qCard = document.createElement('div');
+        qCard.className = 'question-card';
+        qCard.id = `card-q${q.id}`;
+
+        let optionsHTML = '';
+        q.options.forEach((optText, optIdx) => {
+            optionsHTML += `
+                <label class="option-label" id="label-q${q.id}-opt${optIdx}">
+                    <input type="radio" name="question-${q.id}" value="${optIdx}" onchange="selectOption(${q.id}, ${optIdx})">
+                    <span>${String.fromCharCode(65 + optIdx)}) ${optText}</span>
+                </label>
+            `;
+        });
+
+        qCard.innerHTML = `
+            <div class="question-text">Q${q.id}: ${q.text}</div>
+            <div class="options-group">${optionsHTML}</div>
+        `;
+
+        return qCard;
+    }
+
+    // Handle Option Selection
+    function selectOption(qId, optIdx) {
+        const questionObj = allActiveQuestions.find(q => q.id === qId);
+        if (questionObj) {
+            questionObj.userAnswer = optIdx;
+        }
+
+        const card = document.getElementById(`card-q${qId}`);
+        if (card) {
+            card.classList.remove('unanswered-alert');
+            card.classList.add('answered');
+        }
+
+        // Highlight selected label visually
+        for (let i = 0; i < 4; i++) {
+            const lbl = document.getElementById(`label-q${qId}-opt${i}`);
+            if (lbl) {
+                if (i === optIdx) {
+                    lbl.classList.add('selected-option');
+                } else {
+                    lbl.classList.remove('selected-option');
+                }
+            }
+        }
+
+        updateProgressBar();
+    }
+
+    // Update Sticky Progress Bar
+    function updateProgressBar() {
+        const answeredCount = allActiveQuestions.filter(q => q.userAnswer !== null).length;
+        const progressPercent = (answeredCount / 25) * 100;
+        
+        document.getElementById('exam-progress-bar').style.width = `${progressPercent}%`;
+        document.getElementById('progress-indicator').textContent = `الأسئلة المجابة: ${answeredCount} / 25`;
+    }
+
+    // ==========================================
+    // EXAM GRADING & SUBMISSION
+    // ==========================================
+    document.getElementById('quiz-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('student-name').value.trim();
+        const studentId = document.getElementById('student-id').value.trim();
+        const alertBanner = document.getElementById('validation-alert');
+
+        // Check if all answered
+        const unanswered = allActiveQuestions.filter(q => q.userAnswer === null);
+
+        if (unanswered.length > 0) {
+            alertBanner.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            unanswered.forEach(q => {
+                const card = document.getElementById(`card-q${q.id}`);
+                if (card) {
+                    card.classList.add('unanswered-alert');
+                }
+            });
+            return;
+        }
+
+        alertBanner.style.display = 'none';
+
+        // Grade exam
+        let score = 0;
+        allActiveQuestions.forEach(q => {
+            if (q.userAnswer === q.answer) {
+                score++;
+            }
+        });
+
+        const percent = Math.round((score / 25) * 100);
+
+        // Determine Level and bilingual descriptions
+        let level = "";
+        let desc = "";
+
+        if (score <= 7) {
+            level = "A1 - Beginner (مبتدئ)";
+            desc = "<strong>التقييم الأكاديمي:</strong> يمتلك الطالب معرفة متواضعة باللغة الإنجليزية ومهارات الاستماع الأساسية. يوصى بشدة بالالتحاق ببرنامج تأهيلي أو مساق مكثف في اللغة الإنجليزية قبل الشروع في دراسة المناهج الجامعية، مع التركيز على المفردات اليومية والقواعد الهيكلية البسيطة لمنع التعثر الدراسي.";
+        } else if (score <= 13) {
+            level = "A2 - Elementary (أساسي)";
+            desc = "<strong>التقييم الأكاديمي:</strong> يستطيع الطالب فهم الجمل والتعبيرات الشائعة والاستماع للملاحظات المباشرة، ولكن لديه فجوات واضحة في القواعد وتراكيب النصوص الأكاديمية المعقدة. يحتاج الطالب إلى بذل جهد إضافي وتدريبات مكثفة على القراءة الذاتية والاستماع والاستيعاب لرفع كفاءته.";
+        } else if (score <= 18) {
+            level = "B1 - Intermediate (متوسط)";
+            desc = "<strong>التقييم الأكاديمي:</strong> يمثل هذا المستوى الحد الأدنى المقبول للبدء في الدراسة الجامعية باللغة الإنجليزية. الطالب قادر على فهم النقاط الرئيسية في المحاضرات المألوفة وصياغة جمل صحيحة. يُنصح بحضور ورش عمل تدريبية لتحسين مهارات التلخيص والكتابة الأكاديمية.";
+        } else if (score <= 22) {
+            level = "B2 - Upper Intermediate (فوق متوسط)";
+            desc = "<strong>التقييم الأكاديمي:</strong> مستوى متميز وقوي جداً. الطالب قادر على التفاعل بطلاقة وثقة، وفهم الأفكار الرئيسية في المحاضرات المعقدة والمناقشات المتخصصة. مستعد تماماً للتعامل مع المناهج باللغة الإنجليزية بدون أي عوائق تذكر.";
+        } else {
+            level = "C1 - Advanced (متقدم)";
+            desc = "<strong>التقييم الأكاديمي:</strong> كفاءة عالية وتفكير نقدي متميز باللغة الإنجليزية واستماع دقيق. يستطيع الطالب فهم النصوص الطويلة الصعبة والمحاضرات الأكاديمية المتقدمة واستنباط المعاني الضمنية، والتعبير عن نفسه بتلقائية وطلاقة مطلقة.";
+        }
+
+        // Render review table
+        const tbody = document.getElementById('review-table-body');
+        tbody.innerHTML = '';
+
+        allActiveQuestions.forEach(q => {
+            const isCorrect = q.userAnswer === q.answer;
+            const userAnsText = q.options[q.userAnswer];
+            const correctAnsText = q.options[q.answer];
+
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><strong>${q.id}</strong></td>
+                <td>
+                    <div style="font-weight: 600; color: #2c3e50;">${q.text}</div>
+                    <div style="font-size: 11px; color: #7f8c8d; margin-top: 2px;">Category: ${q.category}</div>
+                </td>
+                <td style="color: ${isCorrect ? '#196f3d' : '#78281f'}; font-weight: ${isCorrect ? 'normal' : 'bold'};">${userAnsText}</td>
+                <td style="color: #196f3d; font-weight: bold;">${correctAnsText}</td>
+                <td>
+                    <span class="status-badge ${isCorrect ? 'status-correct' : 'status-incorrect'}">
+                        ${isCorrect ? '✔ Correct' : '✘ Incorrect'}
+                    </span>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+
+        // Date String
+        const now = new Date();
+        const formattedDate = now.toLocaleString('ar-EG', { hour12: true });
+
+        // Save result locally to database (LocalStorage)
+        saveResultToLocalStorage({
+            date: formattedDate,
+            name: name,
+            studentId: studentId,
+            score: score,
+            percent: percent,
+            level: level
+        });
+
+        // Display results page
+        document.getElementById('quiz-form').style.display = 'none';
+        const resultScreen = document.getElementById('result-screen');
+        resultScreen.style.display = 'block';
+
+        document.getElementById('res-name').textContent = name;
+        document.getElementById('res-id').textContent = studentId;
+        document.getElementById('res-date').textContent = formattedDate;
+
+        document.getElementById('res-score').textContent = score;
+        document.getElementById('res-percent').textContent = percent;
+        document.getElementById('res-level').textContent = level;
+        document.getElementById('res-desc').innerHTML = desc;
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ==========================================
+    // LOCAL STORAGE DATABASE & EXCEL EXPORT ENGINE
+    // ==========================================
+    const STORAGE_KEY = 'neu_english_placement_results';
+
+    function getLocalDatabase() {
+        const data = localStorage.getItem(STORAGE_KEY);
+        return data ? JSON.parse(data) : [];
+    }
+
+    function saveResultToLocalStorage(record) {
+        const db = getLocalDatabase();
+        db.push(record);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
+        renderAdminTable();
+    }
+
+    function renderAdminTable() {
+        const db = getLocalDatabase();
+        const tbody = document.getElementById('admin-table-body');
+        const summary = document.getElementById('admin-stats-summary');
+
+        summary.textContent = `إجمالي الامتحانات المسجلة: ${db.length}`;
+
+        if (db.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #888;">لا توجد نتائج مسجلة حتى الآن</td></tr>';
+            return;
+        }
+
+        tbody.innerHTML = '';
+        const recent = [...db].reverse().slice(0, 10);
+        recent.forEach(item => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${item.date}</td>
+                <td><strong>${item.name}</strong></td>
+                <td>${item.studentId}</td>
+                <td>${item.score} / 25</td>
+                <td>${item.percent}%</td>
+                <td>${item.level}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function toggleAdminPanel() {
+        const content = document.getElementById('admin-content-box');
+        const icon = document.getElementById('admin-toggle-icon');
+        if (content.style.display === 'block') {
+            content.style.display = 'none';
+            icon.textContent = '▼ فتح اللوحة';
+        } else {
+            content.style.display = 'block';
+            icon.textContent = '▲ إغلاق اللوحة';
+            renderAdminTable();
+        }
+    }
+
+    function exportToExcel() {
+        const db = getLocalDatabase();
+        if (db.length === 0) {
+            alert('لا توجد نتائج مسجلة لحفظها في شيت Excel!');
+            return;
+        }
+
+        // CSV Header with UTF-8 BOM for perfect Arabic rendering in Excel
+        let csvContent = "\uFEFF"; 
+        csvContent += "تاريخ وتوقيت الامتحان,اسم الطالب بالكامل,رقم القيد / الهوية,الدرجة (من 25),النسبة المئوية %,المستوى التقديري (CEFR)\n";
+
+        db.forEach(row => {
+            const cleanName = `"${row.name.replace(/"/g, '""')}"`;
+            const cleanId = `"${row.studentId.replace(/"/g, '""')}"`;
+            const cleanLevel = `"${row.level.replace(/"/g, '""')}"`;
+            csvContent += `"${row.date}",${cleanName},${cleanId},${row.score},${row.percent}%,${cleanLevel}\n`;
+        });
+
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.setAttribute('href', url);
+        link.setAttribute('download', `نتائج_اختبار_تحديد_المستوى_NEU_${new Date().toISOString().slice(0,10)}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    function clearLocalDatabase() {
+        const db = getLocalDatabase();
+        if (db.length === 0) {
+            alert('قاعدة البيانات فارغة بالفعل!');
+            return;
+        }
+        if (confirm('هل أنت تأكد من رغبتك في مسح كافة نتائج الطلاب المسجلة على هذا الجهاز؟ لا يمكن التراجع عن هذا الإجراء.')) {
+            localStorage.removeItem(STORAGE_KEY);
+            renderAdminTable();
+            alert('تم مسح قاعدة البيانات بنجاح.');
+        }
+    }
+
+    // Initialize Exam on Load
+    window.onload = function() {
+        generateExam();
+        renderAdminTable();
+    };
+</script>
+
+</body>
+</html>
