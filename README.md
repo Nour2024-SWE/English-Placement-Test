@@ -172,4 +172,5 @@ Released under the MIT License. See [LICENSE](LICENSE).
 
 ## Author
 
-Replace this line with the project owner, department, university, or organization name before publishing.
+Nour Zawawi
+Egypt
